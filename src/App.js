@@ -3,7 +3,7 @@ import { Product } from "./Product";
 function App() {
   return (
     <div >
-      <h2 className="btn btn-primary">Hello</h2>
+      <center><h4>Welcome to Veera Online Shopping mall</h4></center>
       <Product/>
     </div>
   );

@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 const initialState = {
     cartItems: [],
-    totalQuantity: 0,
-    totalPrice: 0
+    totalCartQuantity: 0,
+    totalCartPrice: 0
 }
 const cartSlice = createSlice({
     name: "cartSlice",
@@ -23,30 +23,30 @@ const cartSlice = createSlice({
         },
         deleteFromCart: (state, action) => {
             const itemExits = state.cartItems.findIndex((item) => item.id === action.payload.id)
-            if (state.cartItems[itemExits].quantity > 1) {
-                state.cartItems[itemExits].quantity--
-                toast.warning("Quantity Decresed Successfully")
-            }
-            else if (state.cartItems[itemExits].quantity === 1) {
-                const remainingItems = state.cartItems.filter((item) => item.id !== action.payload.id)
-                state.cartItems = remainingItems
-                toast.warning("Product removed From cart")
-            }
+                if (state.cartItems[itemExits].quantity > 1) {
+                    state.cartItems[itemExits].quantity--
+                    toast.warning("Quantity Decresed Successfully")
+                }
+                else if (state.cartItems[itemExits].quantity === 1) {
+                    const remainingItems = state.cartItems.filter((item) => item.id !== action.payload.id)
+                    state.cartItems = remainingItems
+                    toast.warning("Product removed From cart")
+                }
         },
         getTotal: (state, action) => {
-            const { tPrice, tQuantity } = state.cartItems.reducer((cartInfo, item) => {
-                const Sum = item.quantity * item.price
-                cartInfo.totalPrice += Sum
+            const { totalPrice, totalQuantity } = state.cartItems.reduce((cartInfo, item) => {
+                const total = item.price * item.quantity
+                cartInfo.totalPrice += total
                 cartInfo.totalQuantity += item.quantity
                 return cartInfo
-            }, { tPrice, tQuantity })
-                state.totalPrice = tPrice
-                state.totalQuantity = tQuantity
+            }, { totalPrice: 0, totalQuantity: 0 })
+            state.totalCartPrice = totalPrice
+            state.totalCartQuantity = totalQuantity
         }
     }
 })
 export default cartSlice.reducer
-export const { addToCart, deleteFromCart,getTotal } = cartSlice.actions
+export const { addToCart, deleteFromCart, getTotal } = cartSlice.actions
 
 
 

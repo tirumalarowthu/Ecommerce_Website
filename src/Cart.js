@@ -4,16 +4,19 @@ import { addToCart, deleteFromCart, getTotal } from './redux/cartSlice'
 
 const Cart = () => {
     const cartItems = useSelector((state) => state.cart.cartItems)
-    const totalPrice=useSelector((state)=>state.cart.totalPrice)
-    const totalQuantity=useSelector((state)=>state.cart.totalQuantity)
+    const totalPrice=useSelector((state)=>state.cart.totalCartPrice)
+    const totalQuantity=useSelector((state)=>state.cart.totalCartQuantity)
     const dispatch=useDispatch()
-    console.log(totalPrice)
-    console.log(totalQuantity)
-    console.log(cartItems)
-
+   
+    // console.log(totalPrice)
+    // console.log(totalQuantity)
+    // console.log(cartItems)
+    useEffect(()=>{
+        dispatch(getTotal())
+    },[cartItems])
     return (
         <React.Fragment>
-            <h1>Cart Items - [cart Items ({totalQuantity})]</h1>
+            <h1>Cart Items ({totalQuantity})</h1>
             {
                 cartItems.length > 0 ?<div> <table className='table '>
                     <thead style={{ backgroundColor:"powderblue"}}>
@@ -36,7 +39,7 @@ const Cart = () => {
                                     <button onClick={()=>dispatch(addToCart(item))} className='p-1 m-1 btn btn-primary'>+</button>
                                 </td>
                                 <td>{item.price}</td>
-                                <td>{item.quantity*item.price}</td>
+                                <td>{(item.quantity*item.price).toFixed(2)}</td>
                             </tr>
                             )
                         }
@@ -44,7 +47,7 @@ const Cart = () => {
                 </table>
                 <div className='m-5' style={{display:"flex",justifyContent:"space-between"}}>
                     <div><button className='btn btn-primary'> Continue To Shopping...</button></div>
-                    <div><button onClick={()=>dispatch(getTotal())} className='btn btn-primary'>Grand Total-{totalPrice}</button></div>
+                    <div><button className='btn btn-primary'>Grand Total-{totalPrice.toFixed(2)}</button></div>
                 </div>
                 </div>
                     : <p>No cart Items Found ....</p>

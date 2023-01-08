@@ -20,13 +20,13 @@ export const Product = () => {
     }
     else if (status === "success") {
         content = products && products.length > 0 ? <div className='row'>
-            {products.map((item, index) => <div className='p-1 border col-3 border-2 text-center' key={index}>
-                <div style={{ height: "100%" }} className='border '>
+            {products.map((item, index) => <div className='p-1 col-3  text-center' key={index}>
+                <div style={{ height: "100%" }} className='border p-2 rounded '>
                     <img height="50%" width="100" src={item.image} />
                     <h5 style={{ height: "30%" }}>{item.title}</h5>
-                    <div className='text-center ' style={{display:"flex",height:"17%",width:"99%",margin:"0px auto"}}>
+                    <div className='text-center ' style={{display:"flex",justifyContent:"space-between",height:"18%",width:"99%"}}>
                         <button onClick={() => dispatch(addToCart(item))}  className='btn btn-primary m-1'>Add to Cart</button>
-                        <button onClick={()=>dispatch(deleteFromCart(item))} className='btn btn-warning m-1' >Remove to Cart</button>
+                        <button  onClick={()=>dispatch(deleteFromCart(item))} className='btn btn-warning m-1' >Remove to Cart</button>
                     </div>
                 </div>
             </div>)
