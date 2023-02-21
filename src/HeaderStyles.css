@@ -36,7 +36,7 @@
 padding: 10px;
 }
 .cartitems button{
-    width: 50%;
+    width: 100%;
 }
 .cartitems{
     display: flex;

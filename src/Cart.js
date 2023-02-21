@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import Header from './Header'
 import { addToCart, deleteFromCart, getTotal } from './redux/cartSlice'
 
 const Cart = () => {
@@ -16,6 +18,7 @@ const Cart = () => {
     },[cartItems])
     return (
         <React.Fragment>
+            <Header/>
             <h1>Cart Items ({totalQuantity})</h1>
             {
                 cartItems.length > 0 ?<div> <table className='table '>
@@ -46,7 +49,7 @@ const Cart = () => {
                     </tbody>
                 </table>
                 <div className='m-5' style={{display:"flex",justifyContent:"space-between"}}>
-                    <div><button className='btn btn-primary'> Continue To Shopping...</button></div>
+                        <div><Link to="/"><button className='btn btn-primary'> Continue To Shopping...</button></Link></div>
                     <div><button className='btn btn-primary'>Grand Total-{totalPrice.toFixed(2)}</button></div>
                 </div>
                 </div>
